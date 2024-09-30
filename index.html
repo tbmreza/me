@@ -239,23 +239,18 @@
     </footer>
 
     <script>
-      const darkModeToggle = document.getElementById('dark-mode-toggle');
-      const body = document.body;
+      const classList = document.body.classList;
 
-      darkModeToggle.addEventListener('click', () => {
-        body.classList.toggle('dark-mode');
-        localStorage.setItem('darkMode', body.classList.contains('dark-mode'));
-        
-        // Add rotation animation
-        darkModeToggle.classList.add('rotate');
-        setTimeout(() => {
-          darkModeToggle.classList.remove('rotate');
-        }, 500);
+      // On toggle button click, toggle dark mode class in the DOM
+      // so localStorage can set accordingly.
+      document.getElementById('dark-mode-toggle').addEventListener('click', () => {
+        classList.toggle('dark-mode');
+        localStorage.setItem('darkMode', classList.contains('dark-mode'));
       });
 
-      // Check for saved dark mode preference
+      // On load, ensure that the DOM has dark mode if localStorage says so.
       if (localStorage.getItem('darkMode') === 'true') {
-        body.classList.add('dark-mode');
+        classList.add('dark-mode');
       }
     </script>
   </body>
