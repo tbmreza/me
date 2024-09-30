@@ -11,6 +11,44 @@
       href="/static/favicon/16.png"
     />
     <style>
+      :root {
+        --bg-color: #ffffff;
+        --text-color: #000000;
+        --table-border-color: darkgrey;
+        --table-header-bg: #f2f2f2;
+        --hr-gradient: linear-gradient(
+          to right,
+          #e0e0e0,
+          #a9a9a9,
+          #696969,
+          #2f4f4f
+        );
+        --link-color: #0000EE;
+        --link-visited-color: #551A8B;
+      }
+
+      .dark-mode {
+        --bg-color: #1a1a1a;
+        --text-color: #ffffff;
+        --table-border-color: #555555;
+        --table-header-bg: #333333;
+        --hr-gradient: linear-gradient(
+          to right,
+          #333333,
+          #555555,
+          #777777,
+          #999999
+        );
+        --link-color: #6495ED;
+        --link-visited-color: #9370DB;
+      }
+
+      body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        transition: background-color 0.3s, color 0.3s;
+      }
+
       .chibi {
         border-radius: 1ch;
       }
@@ -28,7 +66,7 @@
       }
       table.tbl th,
       table.tbl td {
-        border: 1px solid darkgrey;
+        border: 1px solid var(--table-border-color);
         padding: 10px;
       }
 
@@ -37,7 +75,7 @@
       }
 
       table.tbl th {
-        background-color: #f2f2f2;
+        background-color: var(--table-header-bg);
       }
 
       th {
@@ -61,13 +99,7 @@
       }
 
       .hr-line:after {
-        background: linear-gradient(
-          to right,
-          #e0e0e0,
-          #a9a9a9,
-          #696969,
-          #2f4f4f
-        );
+        background: var(--hr-gradient);
         position: absolute;
         content: "";
         height: 4px;
@@ -86,10 +118,33 @@
         margin: 20px 0;
         font-style: italic;
       }
+
+      a {
+        color: var(--link-color);
+        transition: color 0.3s;
+      }
+
+      a:visited {
+        color: var(--link-visited-color);
+      }
+
+      #dark-mode-toggle {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        border: 2px dotted var(--text-color);
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 1em;
+        z-index: 1;  /* to get over .hr-line
+      }
     </style>
   </head>
 
   <body>
+    <button id="dark-mode-toggle">Toggle <b>Dark</b></button>
     <main>
       <p></p>
 
@@ -182,5 +237,26 @@
         </a>
       </p>
     </footer>
+
+    <script>
+      const darkModeToggle = document.getElementById('dark-mode-toggle');
+      const body = document.body;
+
+      darkModeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        localStorage.setItem('darkMode', body.classList.contains('dark-mode'));
+        
+        // Add rotation animation
+        darkModeToggle.classList.add('rotate');
+        setTimeout(() => {
+          darkModeToggle.classList.remove('rotate');
+        }, 500);
+      });
+
+      // Check for saved dark mode preference
+      if (localStorage.getItem('darkMode') === 'true') {
+        body.classList.add('dark-mode');
+      }
+    </script>
   </body>
 </html>
