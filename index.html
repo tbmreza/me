@@ -49,10 +49,10 @@
         transition: background-color 0.3s, color 0.3s;
       }
 
-      .chibi {
+      .art {
         border-radius: 1ch;
       }
-      .chibi + p {
+      .art + p {
         font-size: 0.9em;
         margin: 0;
       }
@@ -148,7 +148,7 @@
     <main>
       <p></p>
 
-      <p class="commentary">Reviewed September 1, 2024</p>
+      <p class="commentary">Reviewed February 1, 2025</p>
       <div class="hr-line"></div>
       <h1>Reza Handzalah</h1>
       <p>
@@ -163,10 +163,11 @@
         I'm looking for a good job right now. If you think that I'd be a great
         fit to your team, let's chat!
       </p>
-      <img class="chibi" src="/static/chibi.png" alt="" />
+      <img class="art" id="img-changeable" src="/static/chibi.png" alt="" />
       <p>
-        The face I like to use on the Internet. Art commission by
-        <a href="https://linktr.ee/kagenao">Adia Titania</a>.
+        Art commission by
+        <a id="link-changeable" href="https://linktr.ee/kagenao">Adia Titania</a>.
+        (Click image.)
       </p>
       <br />
       <table class="tbl">
@@ -191,7 +192,7 @@
       <table>
         <tr>
           <th>🐦:</th>
-          <td>https://twitter.com/rezahandzalah</td>
+          <td>https://bsky.app/profile/zalah.bsky.social</td>
         </tr>
         <tr>
           <th>🦉:</th>
@@ -252,6 +253,22 @@
       if (localStorage.getItem('darkMode') === 'true') {
         classList.add('dark-mode');
       }
+
+
+      // Change img.
+      const imgDefault = '/static/chibi.png';
+      const link = document.getElementById('link-changeable');
+      document.getElementById('img-changeable').addEventListener('click', function() {
+        if (this.src.endsWith(imgDefault)) {
+          this.src = this.src.replace(imgDefault, '/static/portrait.jpg');
+          link.href = 'https://uasnimcommissions.carrd.co';
+          link.textContent = 'uasnim';
+        } else {
+          this.src = this.src.replace('/static/portrait.jpg', imgDefault);
+          link.href = 'https://linktr.ee/kagenao';
+          link.textContent = 'Adia Titania';
+        }
+      });
     </script>
   </body>
 </html>
