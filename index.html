@@ -163,10 +163,10 @@
         I'm looking for a good job right now. If you think that I'd be a great
         fit to your team, let's chat!
       </p>
-      <img class="art" id="img-changeable" src="/static/chibi.png" alt="" />
+      <img class="art" id="img-changeable" src="/static/arts/mengyakkun.png" alt="" />
       <p>
         Art commission by
-        <a id="link-changeable" href="https://linktr.ee/kagenao">Adia Titania</a>.
+        <a id="link-changeable" href="https://vgen.co/mengyakkun">mengyakkun</a>.
         (Click image.)
       </p>
       <br />
@@ -256,18 +256,19 @@
 
 
       // Change img.
-      const imgDefault = '/static/chibi.png';
+      const arts = [
+        { src: '/static/arts/mengyakkun.png', href: 'https://vgen.co/mengyakkun', text: 'mengyakkun' },
+        { src: '/static/arts/portrait.jpg', href: 'https://uasnimcommissions.carrd.co', text: 'uasnim' },
+        { src: '/static/arts/chibi.png', href: 'https://linktr.ee/kagenao', text: 'Adia Titania' },
+      ];
+      let artIndex = 0;
       const link = document.getElementById('link-changeable');
       document.getElementById('img-changeable').addEventListener('click', function() {
-        if (this.src.endsWith(imgDefault)) {
-          this.src = this.src.replace(imgDefault, '/static/portrait.jpg');
-          link.href = 'https://uasnimcommissions.carrd.co';
-          link.textContent = 'uasnim';
-        } else {
-          this.src = this.src.replace('/static/portrait.jpg', imgDefault);
-          link.href = 'https://linktr.ee/kagenao';
-          link.textContent = 'Adia Titania';
-        }
+        artIndex = (artIndex + 1) % arts.length;
+        const nextArt = arts[artIndex];
+        this.src = nextArt.src;
+        link.href = nextArt.href;
+        link.textContent = nextArt.text;
       });
     </script>
   </body>
